@@ -8,6 +8,9 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.example.beans.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -45,9 +48,9 @@ public class JWTUtility implements Serializable {
 		return expiration.before(new Date());
 	}
 	//generate token for user
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(User userDetails) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
+		return doGenerateToken(claims, userDetails);
 	}
 	
 	//while creating the token -

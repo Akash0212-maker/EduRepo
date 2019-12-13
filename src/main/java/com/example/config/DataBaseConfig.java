@@ -4,6 +4,7 @@ import com.mysql.cj.jdbc.Driver;
 
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -12,11 +13,11 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 public class DataBaseConfig {
 
 	
-	
+	@Value("${spring.datasource.url}")
 	private String dbUrl;
-	
+	@Value("${spring.datasource.username}")
 	private String dbUser;
-	
+	@Value("${spring.datasource.pwd}")
 	private String dbPwd;
 	
 	

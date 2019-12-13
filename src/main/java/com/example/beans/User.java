@@ -8,13 +8,13 @@ public class User {
 	
 	String userId;
 	String name;
-	String age;
+	int age;
 	String contact;
 	String email;
 	@Autowired
 	Address address;
 	@Autowired
-	Organisation org;
+	Boolean isOrgOwner;
 	
 	
 	public String getUserId() {
@@ -23,11 +23,11 @@ public class User {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Organisation getOrg() {
-		return org;
+	public Boolean getOrg() {
+		return isOrgOwner;
 	}
-	public void setOrg(Organisation org) {
-		this.org = org;
+	public void setOrg(Boolean org) {
+		this.isOrgOwner = org;
 	}
 	public String getName() {
 		return name;
@@ -35,10 +35,10 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public String getContact() {

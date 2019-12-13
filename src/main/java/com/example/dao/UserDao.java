@@ -7,11 +7,11 @@ public interface UserDao {
 
 	public boolean doRegistration(User user);
 	
-	public Organisation getUserByRegNumber(long regNumber);
+	public User getUserByRegNumber(long regNumber);
 	
-	public Organisation getUserByName(String name);
+	public User getUserByName(String name);
 	
-	public Organisation getUserByBatch(int orgBatchID);
+
 	
 	
 }

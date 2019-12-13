@@ -34,25 +34,27 @@ public class CommonController {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 	@Autowired
-	private UserDao orgDao;	
+	private UserDao userDao;	
 	@Autowired
 	private DetailValidateDao dvDao;
-	
-/**
- * method for authentication of user
- * @param authenticationRequest
- * @return
- * @throws Exception
- */
+
+	/**
+	 * method for authentication of user
+	 * @param authenticationRequest
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/userLogin", method = RequestMethod.POST)
 	public ResponseEntity userLogin(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		System.out.println("Username,Password : "+authenticationRequest.getUsername()+","+authenticationRequest.getPassword());
 		/*authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());*/
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		/*final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());*/
+		User userDetails=userDao.getUserByName(authenticationRequest.getUsername());
+		
 		
 		if(userDetails!=null) {
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token));
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			return ResponseEntity.ok(new JwtResponse(token));
 		}else {
 			return ResponseEntity.notFound().build();
 		}
@@ -64,18 +66,18 @@ public class CommonController {
 	}
 
 
-/**
- * Method for Registration of new Users and 
- * Check for already Existing User
- * @param user
- * @return
- */
+	/**
+	 * Method for Registration of new Users and 
+	 * Check for already Existing User
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "/newUserRegistration", method = RequestMethod.POST)
 	public ResponseEntity<?> registration(@RequestBody User user){
 		if(dvDao.isAlreadyRegistered(user))
 			return ResponseEntity.ok("User Alredy Registered");
 		else {
-			if(orgDao.doRegistration(user)) 
+			if(userDao.doRegistration(user)) 
 				return ResponseEntity.ok("Registration Done");
 			else
 				return ResponseEntity.ok("Problem in Registration please try again");
