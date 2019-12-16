@@ -15,8 +15,21 @@ public class User {
 	Address address;
 	@Autowired
 	Boolean isOrgOwner;
+	String password;
 	
 	
+	public Boolean getIsOrgOwner() {
+		return isOrgOwner;
+	}
+	public void setIsOrgOwner(Boolean isOrgOwner) {
+		this.isOrgOwner = isOrgOwner;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getUserId() {
 		return userId;
 	}

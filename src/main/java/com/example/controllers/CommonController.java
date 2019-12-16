@@ -60,11 +60,6 @@ public class CommonController {
 		}
 	}
 
-	@RequestMapping(value = "/accessDumyObject" , method = RequestMethod.POST)
-	public ResponseEntity<?> accessDumyObject(@RequestBody Organisation orgObject){
-		return ResponseEntity.ok("Validated"); 
-	}
-
 
 	/**
 	 * Method for Registration of new Users and 
@@ -80,20 +75,10 @@ public class CommonController {
 			if(userDao.doRegistration(user)) 
 				return ResponseEntity.ok("Registration Done");
 			else
-				return ResponseEntity.ok("Problem in Registration please try again");
+				return ResponseEntity.ok("Problem in Registration please try again later");
 		}
 	}
 
-
-	private void authenticate(String username, String password) throws Exception {
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
-		}
-	}
 
 }
 
