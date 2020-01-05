@@ -2,6 +2,7 @@ package com.example.daoImpl;
 
 
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class DetailValidateImp extends JdbcDaoSupport implements DetailValidateD
 	@Qualifier("springDataSource")
 	private DataSource dataSource;
 
+	@PostConstruct
 	private void initialize() {
 		setDataSource(dataSource);
 	}

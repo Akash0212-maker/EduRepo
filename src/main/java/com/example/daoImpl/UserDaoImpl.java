@@ -1,6 +1,10 @@
 package com.example.daoImpl;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,7 +18,15 @@ import com.example.utility.Utility;
 
 @Repository
 public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
-
+	
+	@Autowired
+	@Qualifier("springDataSource")
+	private DataSource dataSource;
+	
+	@PostConstruct
+	private void initialize() {
+		setDataSource(dataSource);
+	}
 
 	@Override
 	public boolean doRegistration(User user) {
@@ -44,7 +56,7 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 	@Override
 	public User getUserByName(String name) {
 	
-		String sql =  "select * from [user] join address on [user].addressId=address.id where userID=?";
+		String sql =  "select * from [user] join address on [user].address_id=address.id where user_unique_id=?";
 		return getJdbcTemplate().queryForObject(sql, new Object[] {name},(RowMapper<User>) new User());
 
 	}

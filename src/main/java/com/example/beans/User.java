@@ -16,8 +16,12 @@ public class User {
 	@Autowired
 	Boolean isOrgOwner;
 	String password;
+	Organisation org;
 	
 	
+	public void setOrg(Organisation org) {
+		this.org = org;
+	}
 	public Boolean getIsOrgOwner() {
 		return isOrgOwner;
 	}
