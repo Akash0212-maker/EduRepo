@@ -2,6 +2,7 @@ package com.example.controllers;
 
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -44,19 +45,20 @@ public class CommonController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/userLogin", method = RequestMethod.POST)
-	public ResponseEntity userLogin(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	@RequestMapping(value = "/userLogin", method = RequestMethod.POST , consumes = {"application/JSON"} , produces = {"application/JSON"})
+	public ResponseEntity<?> userLogin(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		System.out.println("Username,Password : "+authenticationRequest.getUsername()+","+authenticationRequest.getPassword());
 		/*authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());*/
 		/*final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());*/
 		User userDetails=userDao.getUserByName(authenticationRequest.getUsername());
 		
+		System.out.println("userDetails"+userDetails);
 		
 		if(userDetails!=null) {
 			final String token = jwtTokenUtil.generateToken(userDetails);
 			return ResponseEntity.ok(new JwtResponse(token));
 		}else {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.ok("User not found");
 		}
 	}
 

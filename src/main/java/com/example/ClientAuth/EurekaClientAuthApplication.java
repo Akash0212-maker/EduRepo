@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@ComponentScan(basePackages= {"com.example.*"})
+ @ComponentScan("com.example.*") 
 public class EurekaClientAuthApplication {
 
 	public static void main(String[] args) {
